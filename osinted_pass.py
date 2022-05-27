@@ -154,7 +154,7 @@ def newOther(nbother):
 
 
 def generate_dictionnary(profile, nbperson, nbplace, nbdate, nbother):
-	print(profile)
+	# print(profile)
 	dates = []
 	names = []
 	numbers = []
@@ -283,26 +283,97 @@ def generate_dictionnary(profile, nbperson, nbplace, nbdate, nbother):
 	Password2_9 = []
 
 	#Very Heavy
-	password09_09 = []
+	password00_99 = []
+	Password00_99 = []
 
 	#define places, define numbers
 
+	#let's hardcode this, I don't want to use xnd2=name+date2 ; xnd2d = xnd2+date ... 
 	for name in names:
 		password.append(name)
-		for date in dates:
-			password.append(name+date)
-			password.append(date+name)
-			for date2 in dates:
-				password.append(name+date+date2)
-				password.append(date+date2+name)
-				password.append(name+date2+date)
-				password.append(date2+date+name)			
+		for date in dates :
+			for date2 in dates :
+				if date != date2 :
+					for name2 in names :
+						if name != name2:
+							#length = 2
+							password.append(name+date)
+							password.append(name+name2)
+							password.append(name+date2)
+							password.append(name2+date)
+							password.append(name2+name)
+							password.append(name2+date2)
+							password.append(date+date2)
+							password.append(date+name2)
+							password.append(date+name)
+							password.append(date2+date)
+							password.append(date2+name2)
+							password.append(date2+name)
+							#length = 3
+							password.append(name+date+date2)
+							password.append(name+date+name2)
+							password.append(name+name2+date)
+							password.append(name+name2+date2)
+							password.append(name+date2+date)
+							password.append(name+date2+name2)
+
+							password.append(name2+date+date2)
+							password.append(name2+date+name)
+							password.append(name2+name+date)
+							password.append(name2+name+date2)
+							password.append(name2+date2+date)
+							password.append(name2+date2+name)
+
+							password.append(date+name+name2)
+							password.append(date+name+date2)
+							password.append(date+date2+name)
+							password.append(date+date2+name2)
+							password.append(date+name2+name)
+							password.append(date+name2+date2)
+
+							password.append(date2+name2+name)
+							password.append(date2+name2+date)
+							password.append(date2+date+name2)
+							password.append(date2+date+name)
+							password.append(date2+name+name2)
+							password.append(date2+name+date)
+
+							#length = 4
+							password.append(name+date+date2+name2)
+							password.append(name+date+name2+date2)
+							password.append(name+name2+date+date2)
+							password.append(name+name2+date2+date)
+							password.append(name+date2+date+name2)
+							password.append(name+date2+name2+date)
+
+							password.append(name2+date+date2+name)
+							password.append(name2+date+name+date2)
+							password.append(name2+name+date+date2)
+							password.append(name2+name+date2+date)
+							password.append(name2+date2+date+name)
+							password.append(name2+date2+name+date)
+
+							password.append(date+name+name2+date2)
+							password.append(date+name+date2+name2)
+							password.append(date+date2+name+name2)
+							password.append(date+date2+name2+name)
+							password.append(date+name2+name+date2)
+							password.append(date+name2+date2+name)
+
+							password.append(date2+name2+name+date)
+							password.append(date2+name2+date+name)
+							password.append(date2+date+name2+name)
+							password.append(date2+date+name+name2)
+							password.append(date2+name+name2+date)
+							password.append(date2+name+date+name2)
+
+							# we have 24 appends = 4! = 4*3*2*1 ; we did it correctly, we have the exact number of unique possibilities
+
+
 		for place in places:
 			password.append(name+place)
 			password.append(place+name)
-		for name2 in names:
-			if name != name2:
-				password.append(name+name2)
+
 		for number in numbers:
 			password.append(name+number)
 			password.append(number+name)
@@ -313,49 +384,153 @@ def generate_dictionnary(profile, nbperson, nbplace, nbdate, nbother):
 	for place in places:
 		for date in dates:
 			for name in names:
+				#length = 2
+				password.append(name+date)
+				password.append(name+place)
 				password.append(date+place)
+				password.append(date+name)
+				password.append(place+name)
 				password.append(place+date)
+				#length = 3
+				password.append(name+date+place)
 				password.append(name+place+date)
-				password.append(place+name+date)	
+				password.append(date+place+name)
+				password.append(date+name+place)
+				password.append(place+name+date)
+				password.append(place+date+name)
+					
 
-	for date in dates:
-		for date2 in dates:
-			if date != date2:
-				password.append(date+date2)
+	while True :
+		choice = 0
+		choice = input("Which wordlist size do you need :\n1)Light\n2)Light+Medium\n3)Light+Medium+Heavy\n > ")
+		if choice:
+			if not 1 <= int(choice) < 4: 
+				print("Please try again !")
+			else:
+				break;
 
-	Password = [pas.capitalize() for pas in password]
+
 	pass_length = 8
-	with open("password.txt", "w") as output:
-		for pas in password:
-			if len(pas) >= pass_length:
-				output.write(pas+'\n')
 
-	with open("Password.txt", "w") as output:
-		for pas in Password:
-			if len(pas) >= pass_length:
-				output.write(pas+'\n')
+	if int(choice) == 1:
 
-	with open("password1.txt", "w") as output:
-		for pas in password:
-			if len(pas)>= pass_length :
-				if (not pas[-1].isnumeric()):
-					output.write(pas+'1\n')
+		Password = [pas.capitalize() for pas in password]
+		with open("password.txt", "w") as output:
+			for pas in password:
+				if len(pas) >= pass_length:
+					output.write(pas+'\n')
 
-	with open("Password1.txt", "w") as output:
-		for pas in Password:
-			if len(pas) >= pass_length :
-				if (not pas[-1].isnumeric()):
-					output.write(pas+'1\n')
+		with open("Password.txt", "w") as output:
+			for pas in Password:
+				if len(pas) >= pass_length:
+					output.write(pas+'\n')
 
-	
-	bashCommand = "cat password.txt Password.txt password1.txt Password1.txt > pass.txt"
-	process = subprocess.run(bashCommand, shell=True, check=True)
+		bashCommand = "cat password.txt Password.txt > pas.txt"
+		process = subprocess.run(bashCommand, shell=True, check=True)
+		bashCommand = "cat -n pas.txt | sort -uk2 | sort -n | cut -f2- > pass.txt"
+		process = subprocess.run(bashCommand, shell=True, check=True)
+		bashCommand = "rm pas.txt password.txt Password.txt"
+		process = subprocess.run(bashCommand, shell=True, check=True)	
 
-	bashCommand = "cat -n pass.txt | sort -uk2 | sort -n | cut -f2- > pass_s.txt"
-	process = subprocess.run(bashCommand, shell=True, check=True)
+	elif int(choice) == 2 : 
 
-	bashCommand = "rm pass.txt password1.txt password.txt Password.txt Password1.txt"
-	process = subprocess.run(bashCommand, shell=True, check=True)
+		Password = [pas.capitalize() for pas in password]
+		with open("password.txt", "w") as output:
+			for pas in password:
+				if len(pas) >= pass_length:
+					output.write(pas+'\n')
+
+		with open("Password.txt", "w") as output:
+			for pas in Password:
+				if len(pas) >= pass_length:
+					output.write(pas+'\n')
+
+
+		with open("password0-9.txt", "w") as output:
+			for pas in password:
+				if len(pas) >= pass_length-1:
+					for i in range(0,10):
+						output.write(pas+str(i)+'\n')
+
+		with open("Password0-9.txt", "w") as output:
+			for pas in Password:
+				if len(pas) >= pass_length-1:
+					for i in range(0,10):
+						output.write(pas+str(i)+'\n')
+
+		bashCommand = "cat password.txt Password.txt > pas.txt"
+		process = subprocess.run(bashCommand, shell=True, check=True)
+		bashCommand = "cat -n pas.txt | sort -uk2 | sort -n | cut -f2- > pass.txt"
+		process = subprocess.run(bashCommand, shell=True, check=True)
+
+		bashCommand = "cat pas.txt password0-9.txt Password0-9.txt > pas_medium.txt"
+		process = subprocess.run(bashCommand, shell=True, check=True)
+		bashCommand = "cat -n pas_medium.txt | sort -uk2 | sort -n | cut -f2- > pass_medium.txt"
+		process = subprocess.run(bashCommand, shell=True, check=True)
+
+		bashCommand = "rm pas.txt pas_medium.txt password.txt password0-9.txt Password.txt Password0-9.txt"
+		process = subprocess.run(bashCommand, shell=True, check=True)
+
+	else:
+
+		Password = [pas.capitalize() for pas in password]
+		with open("password.txt", "w") as output:
+			for pas in password:
+				if len(pas) >= pass_length:
+					output.write(pas+'\n')
+
+		with open("Password.txt", "w") as output:
+			for pas in Password:
+				if len(pas) >= pass_length:
+					output.write(pas+'\n')
+
+		with open("password0-9.txt", "w") as output:
+			for pas in password:
+				if len(pas) >= pass_length-1:
+					for i in range(0,10):
+						output.write(pas+str(i)+'\n')
+
+		with open("Password0-9.txt", "w") as output:
+			for pas in Password:
+				if len(pas) >= pass_length-1:
+					for i in range(0,10):
+						output.write(pas+str(i)+'\n')
+
+		with open("password00-99.txt", "w") as output:
+			for pas in password:
+				if len(pas) >= pass_length-2:
+					for i in range(0,10):
+						for j in range(0,10):
+							output.write(pas+str(i)+str(j)+'\n')
+
+
+		with open("Password00-99.txt", "w") as output:
+			for pas in Password:
+				if len(pas) >= pass_length-2:
+					for i in range(0,10):
+						for j in range(0,10):
+							output.write(pas+str(i)+str(j)+'\n')
+
+		bashCommand = "cat password.txt Password.txt > pas.txt"
+		process = subprocess.run(bashCommand, shell=True, check=True)
+
+		bashCommand = "cat pas.txt password0-9.txt Password0-9.txt > pas_medium.txt"
+		process = subprocess.run(bashCommand, shell=True, check=True)
+
+		bashCommand = "cat pas_medium.txt password00-99.txt Password00-99.txt > pas_heavy.txt"
+		process = subprocess.run(bashCommand, shell=True, check=True)
+
+		bashCommand = "cat -n pas.txt | sort -uk2 | sort -n | cut -f2- > pass.txt"
+		process = subprocess.run(bashCommand, shell=True, check=True)
+
+		bashCommand = "cat -n pas_medium.txt | sort -uk2 | sort -n | cut -f2- > pass_medium.txt"
+		process = subprocess.run(bashCommand, shell=True, check=True)
+
+		bashCommand = "cat -n pas_heavy.txt | sort -uk2 | sort -n | cut -f2- > pass_heavy.txt"
+		process = subprocess.run(bashCommand, shell=True, check=True)
+
+		bashCommand = "rm pas.txt pas_medium.txt pas_heavy.txt password.txt password0-9.txt password00-99.txt Password.txt Password0-9.txt Password00-99.txt"
+		process = subprocess.run(bashCommand, shell=True, check=True)
 
 
 if __name__ == '__main__':
